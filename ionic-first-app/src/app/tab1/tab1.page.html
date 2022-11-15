@@ -13,11 +13,12 @@
     </ion-toolbar>
   </ion-header>
   <ion-button (click)="buttonClick()">Get positions</ion-button>
-  <ion-label>Rozmiar tablicy: {{currentPositionTab.length}}</ion-label>
+  <ion-button (click)="buttonDeleteClick()">Delete positions</ion-button>
+  <ion-label>Rozmiar tablicy: {{length}}</ion-label>
   <div *ngIf="bool">
     <ion-list *ngFor="let item of currentPositionTab2">
       <ion-item>
-        <ion-label>latitude: {{item.coords.latitude}} longitude: {{item.coords.longitude}}</ion-label>
+        <ion-label>latitude: {{item.x}} longitude: {{item.y}}</ion-label>
       </ion-item>
     </ion-list>
   </div>
