@@ -13,16 +13,22 @@ export class Tab1Page {
   currentPositionTab2: any[] = [];
   bool = false;
   length = 0;
+  storageLength = 0;
+  interval;
   constructor(private storage: Storage) {
-    setInterval(() => {
-      this.printCurrentPosition();
-    }, 5000);
     this.ngOnInit();
+  };
+
+  buttonNewRouteClick() {
+    this.interval = setInterval(() => {
+      this.printCurrentPosition();
+    }, 1000);
   };
 
   ngOnInit = async () => {
     await this.storage.create();
-    this.length = await this.storage.length();
+    this.length = this.currentPositionTab.length;
+    this.storageLength = (await this.storage.length()).valueOf();
   };
 
   printCurrentPosition = async () => {
@@ -31,21 +37,26 @@ export class Tab1Page {
     const y = JSON.stringify(coordinates.coords.longitude);
     const obj = { x, y };
     this.currentPositionTab.push(obj);
-    await this.storage.set(JSON.stringify(obj), 'a');
-    this.length = await this.storage.length();
+    this.length = this.currentPositionTab.length;
   };
 
-  buttonClick() {
-    this.currentPositionTab2.length = 0;
-    this.currentPositionTab.forEach(e => {
-      this.currentPositionTab2.push(e);
-    });
+  buttonSaveRouteClick = async () => {
+    clearInterval(this.interval);
+    await this.storage.set(JSON.stringify(this.currentPositionTab), 'a');
     this.currentPositionTab.length = 0;
-    this.bool = true;
+    this.length = 0;
+    this.storageLength = (await this.storage.length()).valueOf();
+  };
+
+  buttonShowClick() {
+    this.currentPositionTab2.length = 0;
+    this.storage.forEach((v, k, i) => {
+      this.currentPositionTab2.push(k);
+    });
   };
 
   buttonDeleteClick = async () => {
     await this.storage.clear();
-    this.length = await this.storage.length();
+    this.storageLength = (await this.storage.length()).valueOf();
   };
 }

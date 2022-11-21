@@ -12,14 +12,17 @@
       <ion-title size="large">Tab 1</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-button (click)="buttonClick()">Get positions</ion-button>
-  <ion-button (click)="buttonDeleteClick()">Delete positions</ion-button>
-  <ion-label>Rozmiar tablicy: {{length}}</ion-label>
-  <div *ngIf="bool">
-    <ion-list *ngFor="let item of currentPositionTab2">
-      <ion-item>
-        <ion-label>latitude: {{item.x}} longitude: {{item.y}}</ion-label>
-      </ion-item>
-    </ion-list>
-  </div>
+  <ion-button (click)="buttonNewRouteClick()">New route</ion-button>
+  <ion-button (click)="buttonSaveRouteClick()">Save route</ion-button>
+  <ion-button (click)="buttonDeleteClick()">Delete routes</ion-button>
+  <ion-button (click)="buttonShowClick()">Show routes</ion-button>
+  <ion-label>Route length: {{length}}</ion-label>
+  <ion-label>Number of roads: {{storageLength}}</ion-label>
+
+  <ion-list *ngFor="let item of currentPositionTab2">
+    <ion-item>
+      <ion-label>{{item}}</ion-label>
+    </ion-item>
+  </ion-list>
+
 </ion-content>
